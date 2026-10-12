@@ -1,0 +1,25 @@
+{
+  "name": "productchat",
+  "version": "0.1.0",
+  "description": "Self-hosted support chat for product sites: an FAQ bot that answers from your page, a private inbox, and Telegram alerts and replies. One script, one API route, Postgres.",
+  "type": "module",
+  "license": "MIT",
+  "author": "PhishClean (https://www.phishclean.com)",
+  "homepage": "https://github.com/chidhu07/productchat#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/chidhu07/productchat.git" },
+  "bugs": "https://github.com/chidhu07/productchat/issues",
+  "keywords": ["support-chat", "live-chat", "chat-widget", "faq-bot", "telegram", "self-hosted", "crisp-alternative", "intercom-alternative", "helpdesk", "postgres", "vercel"],
+  "exports": {
+    "./server": "./server/index.js",
+    "./widget": "./widget/productchat.js",
+    "./inbox": "./inbox/index.html",
+    "./package.json": "./package.json"
+  },
+  "bin": { "productchat": "bin/productchat.mjs" },
+  "files": ["server", "widget", "inbox", "bin", "examples", "README.md", "LICENSE"],
+  "engines": { "node": ">=18.17" },
+  "dependencies": { "pg": "^8.12.0" },
+  "scripts": {
+    "demo": "node examples/node-server.mjs"
+  }
+}

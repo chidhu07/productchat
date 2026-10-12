@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acme Notes · productchat demo</title>
+  <style>
+    :root { --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --brand: #6366f1; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; }
+    header { max-width: 960px; margin: 0 auto; padding: 22px 20px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    header i { width: 26px; height: 26px; border-radius: 8px; background: var(--brand); display: inline-block; }
+    .hero { max-width: 760px; margin: 0 auto; padding: 64px 20px 40px; text-align: center; }
+    h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; }
+    .hero p { font-size: 18px; color: var(--muted); }
+    .cta { display: inline-block; margin-top: 28px; background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 600; }
+    section.faq { max-width: 720px; margin: 40px auto 120px; padding: 0 20px; }
+    h2 { font-size: 26px; letter-spacing: -.5px; margin-bottom: 18px; }
+    details { border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
+    summary { font-weight: 600; cursor: pointer; }
+    details .answer { color: var(--muted); margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header><i></i>Acme Notes</header>
+  <div class="hero">
+    <h1>Notes that sync everywhere, privately.</h1>
+    <p>End-to-end encrypted notes for Mac, Windows, iPhone and Android. Try the chat bubble in the corner: it answers from the FAQ below.</p>
+    <a class="cta" href="#faq">Start free</a>
+  </div>
+
+  <section class="faq" id="faq">
+    <h2>Questions</h2>
+    <details><summary>How much does Acme Notes cost?</summary><div class="answer">Free for one device. Sync across all your devices is $4 a month or $36 a year.</div></details>
+    <details><summary>Can you read my notes?</summary><div class="answer">No. Notes are encrypted on your device before they sync, and only you hold the key.</div></details>
+    <details><summary>Which devices does it run on?</summary><div class="answer">Mac, Windows, Linux, iPhone, iPad and Android, plus a web app.</div></details>
+    <details><summary>Can I import from Evernote or Notion?</summary><div class="answer">Yes. Go to Settings → Import and pick the export file. Images and attachments come along.</div></details>
+    <details><summary>How do I cancel?</summary><div class="answer">Settings → Billing → Cancel. You keep sync until the end of the period you paid for.</div></details>
+  </section>
+
+  <script>
+    window.productchatConfig = {
+      api: "/api/productchat",
+      brand: "Acme Notes",
+      accent: "#6366f1",
+      dark: "#0f172a",
+      faq: { items: "details", question: "summary", answer: ".answer" },
+      knowledge: [
+        { id: "about", q: "What is Acme Notes?", a: "A private, end-to-end encrypted notes app that syncs across all your devices.", k: "overview about" },
+        { q: "Do you offer refunds?", a: "Yes, within 14 days of any payment. Just ask the team below.", k: "refund money back" }
+      ],
+      synonyms: { evernote: "import", notion: "import", migrate: "import", encryption: "read", encrypted: "read" }
+    };
+  </script>
+  <script src="/productchat.js" defer></script>
+</body>
+</html>
