@@ -110,14 +110,29 @@ export async function revokeInboxKeys(db, { tables } = {}) {
   return rowCount;
 }
 
-/** Point a Telegram bot's webhook at your endpoint so replies to alerts reach visitors. */
-export async function setTelegramWebhook({ botToken, url, secret }) {
-  const r = await fetch(`https://api.telegram.org/bot${botToken}/setWebhook`, {
+/** Point a Telegram bot's webhook at your endpoint so replies to alerts reach visitors.
+
+    Telegram delivers a bot's incoming messages to one place only, so this
+    never takes a bot away from another app: if the bot already has a webhook
+    somewhere else it returns { ok: false, conflict } and changes nothing,
+    unless `force` is set. (Alerts alone never need this; any bot can send.) */
+export async function setTelegramWebhook({ botToken, url, secret, force = false }) {
+  const api = (method, body) => fetch(`https://api.telegram.org/bot${botToken}/${method}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url, secret_token: secret, allowed_updates: ["message"], drop_pending_updates: false }),
-  });
-  return r.json();
+    body: JSON.stringify(body || {}),
+  }).then((r) => r.json());
+
+  const me = await api("getMe");
+  if (!me.ok) return { ok: false, description: me.description || "Telegram rejected the bot token" };
+  const info = await api("getWebhookInfo");
+  if (!info.ok) return { ok: false, description: info.description };
+  const current = info.result.url || "";
+  if (current && current !== url && !force) {
+    return { ok: false, bot: me.result.username, conflict: current };
+  }
+  const set = await api("setWebhook", { url, secret_token: secret, allowed_updates: ["message"], drop_pending_updates: false });
+  return { ...set, bot: me.result.username, replaced: current && current !== url ? current : "" };
 }
 
 export function createProductChat(options = {}) {

@@ -82,15 +82,17 @@ Open the link once on each device you'll answer from. It's the only key to your 
 2. Get your chat ID from [@userinfobot](https://t.me/userinfobot).
 3. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` on your server. Test with `npx productchat telegram-test`.
 
-That gives you alerts. To **reply from Telegram**:
+That gives you alerts. **Alerts work with any bot, even one you already use for something else**: productchat only sends through it.
+
+To **reply from Telegram**, use a bot made just for productchat (@BotFather → `/newbot`, about a minute). Telegram delivers a bot's incoming messages to one app only, so a bot of its own means nothing else can ever clash with it. Then:
 
 ```bash
-npx productchat telegram-webhook https://acme.com/api/productchat
+npx productchat telegram-webhook https://acme.com/api/productchat --yes
 ```
 
 It prints a `TELEGRAM_WEBHOOK_SECRET`; add it to your server's environment and redeploy. Now reply to any 💬 alert to answer that visitor, `/resolve` to close the chat, `/reopen` to open it again. Only your chat ID is accepted, and every update must carry the secret.
 
-> Use a bot dedicated to productchat. A bot can only have one webhook, so pointing an existing bot here stops it receiving messages elsewhere.
+The command won't take a bot away from another app: if the bot already delivers its messages somewhere else, it stops and changes nothing.
 
 ## Widget options
 

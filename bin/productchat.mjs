@@ -46,9 +46,22 @@ if (cmd === "inbox-link") {
   if (!process.env.TELEGRAM_BOT_TOKEN) die("Set TELEGRAM_BOT_TOKEN first.");
   const secret = process.env.TELEGRAM_WEBHOOK_SECRET || randomBytes(24).toString("hex");
   const target = url + (url.includes("?") ? "&" : "?") + "action=telegram";
-  const r = await setTelegramWebhook({ botToken: process.env.TELEGRAM_BOT_TOKEN, url: target, secret });
+  const NEW_BOT = "Create a bot just for productchat instead: message @BotFather, send /newbot, and use its token.\n(Alerts work with any bot; only replies from Telegram need a bot of their own.)";
+  // Telegram can't tell us about apps that poll without a webhook, so ask once.
+  if (!flag("--yes")) {
+    console.log(`This sends every message your bot receives to productchat, so you can reply to visitors from Telegram.
+A bot can deliver its messages to only one app. If this bot is also used by another app, that app would stop getting them.
+
+${NEW_BOT}
+
+If this bot is only for productchat, run again with --yes:
+  productchat telegram-webhook ${url} --yes`);
+    process.exit(1);
+  }
+  const r = await setTelegramWebhook({ botToken: process.env.TELEGRAM_BOT_TOKEN, url: target, secret, force: !!flag("--force") });
+  if (r.conflict) die(`Stopped: @${r.bot} already sends its messages to another app:\n  ${r.conflict}\nChanging it would break that app. ${NEW_BOT}\n(If that old address is yours and no longer used, run again with --force.)`);
   if (!r.ok) die(`Telegram said: ${r.description}`);
-  console.log(`Webhook set to ${target}`);
+  console.log(`@${r.bot} now delivers replies to ${target}`);
   if (!process.env.TELEGRAM_WEBHOOK_SECRET) console.log(`\nAdd this to your server's environment, then redeploy:\nTELEGRAM_WEBHOOK_SECRET=${secret}`);
 } else if (cmd === "schema") {
   console.log(schemaSql().map((s) => s.replace(/\n {4}/g, "\n  ") + ";").join("\n\n"));
