@@ -4,7 +4,7 @@
 
 One script tag, one API route, one Postgres database. No accounts, no per-seat pricing, no third-party chat scripts reading your visitors' messages.
 
-![The widget answering from the page FAQ, then a reply from the team](docs/widget-reply.png)
+![The widget answering from the page FAQ, then a reply from the team](https://raw.githubusercontent.com/chidhu07/productchat/main/docs/widget-reply.png)
 
 ## Why
 
@@ -18,7 +18,7 @@ Most chat tools are a monthly subscription plus a heavy script that phones home 
 
 | | |
 |---|---|
-| ![Inbox](docs/inbox.png) | ![Mobile](docs/mobile.png) |
+| ![Inbox](https://raw.githubusercontent.com/chidhu07/productchat/main/docs/inbox.png) | ![Mobile](https://raw.githubusercontent.com/chidhu07/productchat/main/docs/mobile.png) |
 
 ## Quick start (about 5 minutes)
 
