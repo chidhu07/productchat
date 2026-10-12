@@ -78,6 +78,8 @@ Open the link once on each device you'll answer from. It's the only key to your 
 
 ## Telegram (optional, recommended)
 
+Every install uses **its own** bot token and chat ID. productchat has no shared bot and no server of its own: alerts go straight from your server to Telegram with your token, and nothing passes through anyone else.
+
 1. Create a bot with [@BotFather](https://t.me/BotFather) and press **Start** in a chat with it.
 2. Get your chat ID from [@userinfobot](https://t.me/userinfobot).
 3. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` on your server. Test with `npx productchat telegram-test`.
