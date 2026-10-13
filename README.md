@@ -4,6 +4,8 @@
 
 One script tag, one API route, one Postgres database. No accounts, no per-seat pricing, no third-party chat scripts reading your visitors' messages.
 
+**See it live:** the chat bubble in the bottom right of [phishclean.com](https://www.phishclean.com).
+
 ![The widget answering from the page FAQ, then a reply from the team](https://raw.githubusercontent.com/chidhu07/productchat/main/docs/widget-reply.png)
 
 ## Why
